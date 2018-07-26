@@ -59,17 +59,27 @@ class ProviderSpider(scrapy.Spider):
     
     def parse(self, response):
         item = BupaItem()
+
+        home_title = response.xpath('//div[@class="pad"]/div/div/h1/text()').extract_first()
+
         item['url'] = response.url
-        item['home_title'] = response.xpath('//div[@class="pad"]/div/div/h1/text()').extract_first()
+        item['home_title'] = home_title
 
         description_p = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
         description_n = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
+        if "Hill House" in home_title:
+            description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
+            item['description'] = description
+        else:
 
-        if description_p:
-            description = response.xpath('//div[@class="col w-95"]/p/text()').extract_first()
-            item['description'] = description
-        elif description_n:
-            description = response.xpath('//div[@class="col w-95"]/text()[2]').extract()
-            item['description'] = description
-       
+            if description_p:
+                description = response.xpath('//div[@class="col w-95"]/p/text()').extract_first()
+                item['description'] = description
+            elif description_n:
+                description = response.xpath('//div[@class="col w-95"]/text()[2]').extract()
+                item['description'] = description
+            else:
+                description = "No Description Found"
+                item['description'] = description
+        
         yield item
