@@ -119,17 +119,28 @@ class ProviderSpider(scrapy.Spider):
 
         description_p = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
         description_n = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
+        description_b = response.xpath('//div[@class="body-content"]/div/p[2]/text()') # Description in body class
+        description_a = response.xpath('//div[@class="body-content"]/div/div/text()') # Description in body + 2 divs
+        description_c = response.xpath('//div[@class="body-content"]/div/div/p/text()') # Description in body + 2 divs + p
 
         if "Hill House" in home_title:
             description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
             item['description'] = description
         else:
-
             if description_p:
                 description = response.xpath('//div[@class="col w-95"]/p/text()').extract_first()
                 item['description'] = description
             elif description_n:
                 description = response.xpath('//div[@class="col w-95"]/text()[2]').extract()
+                item['description'] = description
+            elif description_b:
+                description = response.xpath('//div[@class="body-content"]/div/p[2]/text()').extract_first()
+                item['description'] = description 
+            elif description_a:
+                description = response.xpath('//div[@class="body-content"]/div/div/text()').extract()
+                item['description'] = description
+            elif description_c:
+                description = response.xpath('//div[@class="body-content"]/div/div/p/text()').extract_first()
                 item['description'] = description
             else:
                 description = "No Description Found"
