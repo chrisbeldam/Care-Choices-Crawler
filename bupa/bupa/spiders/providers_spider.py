@@ -62,11 +62,17 @@ class ProviderSpider(scrapy.Spider):
 
         home_title = response.xpath('//div[@class="pad"]/div/div/h1/text()').extract_first()
 
+        if home_title:
+            item['home_title'] = home_title
+        else:
+            home_title = "No Home Title Found"
+            item['home_title'] = home_title
+
         item['url'] = response.url
-        item['home_title'] = home_title
 
         description_p = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
         description_n = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
+        
         if "Hill House" in home_title:
             description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
             item['description'] = description
