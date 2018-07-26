@@ -40,7 +40,7 @@ class ProviderSpider(scrapy.Spider):
             'https://www.bupa.co.uk/care-services/care-homes/premier-court-hertfordshire',		
             'https://www.bupa.co.uk/care-services/care-homes/prestemede-powys',		
             'https://www.bupa.co.uk/care-services/care-homes/sandhills-court-scunthorpe',		
-            'https://www.bupa.co.uk/care-services/care-homes/sunnyview-house-leeds	',	
+            'https://www.bupa.co.uk/care-services/care-homes/sunnyview-house-leeds',	
             'https://www.bupa.co.uk/care-services/care-homes/the-arkley-barnet',		
             'https://www.bupa.co.uk/care-services/care-homes/the-lindsay-dorset',		
             'https://www.bupa.co.uk/care-services/care-homes/wykebeck-court-leeds',		
