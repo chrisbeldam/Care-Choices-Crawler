@@ -7,6 +7,43 @@ class ProviderSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
+            'https://www.bupa.co.uk/care-services/care-homes/woodend-cheshire',
+            'https://www.bupa.co.uk/care-services/care-homes/warren-lodge-ashford',
+            'https://www.bupa.co.uk/care-services/care-homes/the-springs-malvern',
+            'https://www.bupa.co.uk/care-services/care-homes/the-sidcup-sidcup',
+            'https://www.bupa.co.uk/care-services/care-homes/the-links-dorset',
+            'https://www.bupa.co.uk/care-services/care-homes/the-kensington-london',
+            'https://www.bupa.co.uk/care-services/care-homes/the-highgate-london',
+            'https://www.bupa.co.uk/care-services/care-homes/the-donnington-newbury',
+            'https://www.bupa.co.uk/care-services/care-homes/thatcham-court-berkshire',
+            'https://www.bupa.co.uk/care-services/care-homes/tenterden-house-st-albans',
+            'https://www.bupa.co.uk/care-services/care-homes/tadworth-grove-surrey',
+            'https://www.bupa.co.uk/care-services/care-homes/staplehurst-manor-kent',
+            'https://www.bupa.co.uk/care-services/care-homes/stamford-london',
+            'https://www.bupa.co.uk/care-services/care-homes/st-marys-luton',
+            'https://www.bupa.co.uk/care-services/care-homes/st-georges-surrey',
+            'https://www.bupa.co.uk/care-services/care-homes/shockerwick-house-bath',
+            'https://www.bupa.co.uk/care-services/care-homes/puttenham-hill-house-guildford',
+            'https://www.bupa.co.uk/care-services/care-homes/pendean-house-west-sussex',
+            'https://www.bupa.co.uk/care-services/care-homes/pebble-mill-birmingham',
+            'https://www.bupa.co.uk/care-services/care-homes/parkside-reading',
+            'https://www.bupa.co.uk/care-services/care-homes/mount-hall-macclesfield',
+            'https://www.bupa.co.uk/care-services/care-homes/middlesex-manor-wembley',
+            'https://www.bupa.co.uk/care-services/care-homes/maypole-southampton',
+            'https://www.bupa.co.uk/care-services/care-homes/manor-court-southall',
+            'https://www.bupa.co.uk/care-services/care-homes/manley-court-london',
+            'https://www.bupa.co.uk/care-services/care-homes/lynton-hall-surrey',
+            'https://www.bupa.co.uk/care-services/care-homes/leominster-leominster',
+            'https://www.bupa.co.uk/care-services/care-homes/knights-grove-southampton',
+            'https://www.bupa.co.uk/care-services/care-homes/hutton-village-essex',
+            'https://www.bupa.co.uk/care-services/care-homes/holyport-lodge-maidenhead',
+            'https://www.bupa.co.uk/care-services/care-homes/heathgrove-lodge-london',
+            'https://www.bupa.co.uk/care-services/care-homes/heathbrook-house-stoke-heath',
+            'https://www.bupa.co.uk/care-services/care-homes/havering-court-romford',
+            'https://www.bupa.co.uk/care-services/care-homes/harts-house-woodford-green',
+            'https://www.bupa.co.uk/care-services/care-homes/hadley-lawns-barnet',
+            'https://www.bupa.co.uk/care-services/care-homes/erskine-hall-northwood',
+            'https://www.bupa.co.uk/care-services/care-homes/brunswick-court-watford',
             'https://www.bupa.co.uk/care-services/care-homes/southlands-harrogate',
             'https://www.bupa.co.uk/care-services/care-homes/greenhill-powys',
             'https://www.bupa.co.uk/care-services/care-homes/heathland-court-wimbledon',	
@@ -52,7 +89,17 @@ class ProviderSpider(scrapy.Spider):
             'https://www.bupa.co.uk/care-services/care-homes/argyles-newbury',		
             'https://www.bupa.co.uk/care-services/care-homes/ashby-court-leicestershire',		
             'https://www.bupa.co.uk/care-services/care-homes/ashley-park-surrey',			
-            'https://www.bupa.co.uk/care-services/care-homes/the-priory-shirley',		
+            'https://www.bupa.co.uk/care-services/care-homes/the-priory-shirley',
+            'https://www.bupa.co.uk/care-services/care-homes/clare-house-uxbridge',
+            'https://www.bupa.co.uk/care-services/care-homes/collingwood-grange-camberley',
+            'https://www.bupa.co.uk/care-services/care-homes/colonia-court-colchester',
+            'https://www.bupa.co.uk/care-services/care-homes/cottenham-court-cambridge',
+            'https://www.bupa.co.uk/care-services/care-homes/croft-house-essex',
+            'https://www.bupa.co.uk/care-services/care-homes/dene-place-surrey',
+            'https://www.bupa.co.uk/care-services/care-homes/east-dean-grange-east-sussex',
+            'https://www.bupa.co.uk/care-services/care-homes/queensmount-bournemouth',
+            'https://www.bupa.co.uk/care-services/care-homes/red-court-surrey',
+
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -72,7 +119,7 @@ class ProviderSpider(scrapy.Spider):
 
         description_p = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
         description_n = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
-        
+
         if "Hill House" in home_title:
             description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
             item['description'] = description
