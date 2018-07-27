@@ -117,13 +117,15 @@ class ProviderSpider(scrapy.Spider):
 
         item['url'] = response.url
 
+        # Definition of the different description types which are possible due to the layout of bupas pages
+
         description_a = response.xpath('//div[@class="body-content"]/div/div/text()') # Description in body + 2 divs
         description_b = response.xpath('//div[@class="body-content"]/div/p[2]/text()') # Description in body class
         description_c = response.xpath('//div[@class="body-content"]/div/div/p/text()') # Description in body + 2 divs + p
-        description_p = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
-        description_n = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
+        description_d = response.xpath('//div[@class="col w-95"]/p/text()') # Description inside a paragraph tag
+        description_e = response.xpath('//div[@class="col w-95"]/text()') # Description not inside paragraph tag
         
-        
+        # Hill House seems to have some weird format that needs specifically checking for. 
         if "Hill House" in home_title:
             description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
             item['description'] = description
@@ -141,16 +143,16 @@ class ProviderSpider(scrapy.Spider):
                 description = response.xpath('//div[@class="body-content"]/div/div/p/text()').extract_first()
                 item['description'] = description
 
-            elif description_n:
-                description = response.xpath('//div[@class="col w-95"]/text()[2]').extract()
+            elif description_d:
+                description = response.xpath('//div[@class="col w-95"]/p/text()').extract_first()
                 item['description'] = description
 
-            elif description_p:
-                description = response.xpath('//div[@class="col w-95"]/p/text()').extract_first()
+            elif description_e:
+                description = response.xpath('//div[@class="col w-95"]/text()[2]').extract()
                 item['description'] = description
                 
             else:
-                description = "No Description Found"
+                description = "No Description Found. Please Check the url for a description"
                 item['description'] = description
         
         yield item
