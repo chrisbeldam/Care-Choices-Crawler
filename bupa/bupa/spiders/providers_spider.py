@@ -1,4 +1,5 @@
 import scrapy
+
 from bupa.items import BupaItem
 
 
@@ -117,6 +118,10 @@ class ProviderSpider(scrapy.Spider):
 
         item['url'] = response.url
 
+        address = response.xpath('//div[@class="pad"]/div/div/p/text()').extract_first()
+           
+        item['address'] = address
+
         # Definition of the different description types which are possible due to the layout of bupas pages
 
         description_a = response.xpath('//div[@class="body-content"]/div/div/text()') # Description in body + 2 divs
@@ -129,8 +134,8 @@ class ProviderSpider(scrapy.Spider):
         if "Hill House" in home_title:
             description = response.xpath('//div[@class="col w-95"]/p/text()').extract()
             item['description'] = description
-        else:
 
+        else:
             if description_a:
                 description = response.xpath('//div[@class="body-content"]/div/div/text()').extract()
                 item['description'] = description

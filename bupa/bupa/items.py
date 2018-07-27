@@ -14,4 +14,5 @@ class BupaItem(scrapy.Item):
     url = scrapy.Field()
     home_title = scrapy.Field()
     description = scrapy.Field()
+    address = scrapy.Field()
     pass
