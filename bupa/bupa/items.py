@@ -16,3 +16,12 @@ class BupaItem(scrapy.Item):
     description = scrapy.Field()
     address = scrapy.Field()
     pass
+
+class ExtraCareItem(scrapy.Item):
+    url = scrapy.Field()
+    housing_name = scrapy.Field()
+    address = scrapy.Field()
+    telephone = scrapy.Field()
+    cqc_id = scrapy.Field()
+    care_provider = scrapy.Field()
+    pass
