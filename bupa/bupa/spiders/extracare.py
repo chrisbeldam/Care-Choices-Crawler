@@ -29,7 +29,8 @@ class ExtraCareSpider(scrapy.Spider):
         telephone = response.xpath('//p[@class="call"]/strong/text()').extract_first()
         # cqc_id = response.xpath().extract_first()
         care_provider = response.xpath('//div[@class="managed-by"]/h2/span[@itemprop="name"]/text()').extract_first()
-
+        care_provider_extra = response.xpath('//div[@class="managed-by extra"]/h2/a/text()').extract_first()
+        care_provider_no_extra_link = response.xpath('//div[@class="managed-by"]/h2/a/text()').extract_first()
         item['url'] = url
 
         if housing_name:
@@ -54,6 +55,10 @@ class ExtraCareSpider(scrapy.Spider):
 
         if care_provider:
             item['care_provider'] = care_provider
+        elif care_provider_extra:
+            item['care_provider'] = care_provider_extra
+        elif care_provider_no_extra_link:
+            item['care_provider'] = care_provider_no_extra_link
         else:
             item['care_provider'] = 'No Care provider found'
 
