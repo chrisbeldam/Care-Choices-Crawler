@@ -25,3 +25,9 @@ class ExtraCareItem(scrapy.Item):
     cqc_id = scrapy.Field()
     care_provider = scrapy.Field()
     pass
+
+class ExtraCareCCItem(scrapy.Item):
+    pass
+
+class DayCareCCItem(scrapy.Item):
+    pass
